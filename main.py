@@ -20,11 +20,9 @@ async def app():
   # To initialize the app
     if "current_form" not in st.session_state:
         st.session_state["current_form"] = 1
-    if "message_history" not in st.session_state:
-        st.session_state["message_history"] = []
 
     if st.session_state["current_form"] == 1:
-        await intro()
+        await intro_page()
     elif st.session_state["current_form"] == 2:
         await form_1_page()
 
