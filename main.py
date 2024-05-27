@@ -35,14 +35,14 @@ async def intro_page():
     """
     st.write(intro_text)
 
-    form1 = st.form("Intro")
+    form_1 = st.form("Intro")
     
-    user_sex = form1.selectbox("What is your sex?", ("Male", "Female"))
-    fitness_goal = form1.text_input("What is your fitness goal?")
+    user_sex = form_1.selectbox("What is your sex?", ("Male", "Female"))
+    fitness_goal = form_1.text_input("What is your fitness goal?")
 
-    submit = form1.form_submit_button("Start planning")
+    submit_1 = form_1.form_submit_button("Start planning")
 
-    if submit:
+    if submit_1:
         if user_sex and fitness_goal:
             st.session_state["user_sex"] = user_sex
             st.session_state["fitness_goal"] = fitness_goal
@@ -59,9 +59,9 @@ async def intro_page():
 
         else:
             if not user_sex:
-                form1.error("No Sex")
+                form_1.error("No Sex")
             if not fitness_goal:
-                form1.error("No Goal")
+                form_1.error("No Goal")
 
 
 async def form_1_page():
@@ -70,14 +70,14 @@ async def form_1_page():
     choices = st.session_state["choices"]
     st.header("Choice of Plan")
     st.text(response)
-    form2 = st.form("Pick the Choice")
-    choice = form2.selectbox("Choose a plan", choices)
-    submit2 = form2.form_submit_button("Submit")
+    form_2 = st.form("Pick the Choice")
+    choice = form_2.selectbox("Choose a plan", choices)
+    submit_2 = form_2.form_submit_button("Submit")
     messages = []
     user_sex = st.session_state["user_sex"]
     fitness_goal = st.session_state["fitness_goal"]
 
-    if submit2:
+    if submit_2:
         messages.append({"role": "user", "content": f"Generate a full weekly fitness and meal plan based on {choice}"})
         messages.append({"role": "system", "content": f"The user is {user_sex} so detail the type of program to think of based on the user's sex"})
         messages.append({"role": "system", "content": f"The user also aims to {fitness_goal} so design around that"})
@@ -85,7 +85,7 @@ async def form_1_page():
         st.session_state["open_ai_response"] = response
         st.write(response)
     else:
-        form2.error("Missing Choice")
+        form_2.error("Missing Choice")
     
 
 if __name__ == "__main__":
