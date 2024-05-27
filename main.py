@@ -5,7 +5,6 @@ from openai import OpenAI
 
 
 client = OpenAI( api_key=st.secrets["API_key"], 
-                 #api_key=os.environ.get("API_key")
                 )
 
 async def gen_response(message):
@@ -26,10 +25,10 @@ async def app():
     if st.session_state["current_form"] == 1:
         await intro()
     elif st.session_state["current_form"] == 2:
-        await form_1()
+        await form_1_page()
 
 
-async def intro():
+async def intro_page():
     st.title("Plan Maker")
     st.header("Fitness Plan Maker")
     intro_text = """by Isaiah Louis Emmanuel Yee\n
@@ -57,7 +56,7 @@ async def intro():
             st.session_state["response"] = response
             st.session_state["choices"] = choices
             st.session_state["current_form"] = 2
-            await form_1()
+            await form_1_page()
 
         else:
             if not user_sex:
@@ -66,7 +65,7 @@ async def intro():
                 form1.error("No Goal")
 
 
-async def form_1():
+async def form_1_page():
     response = st.session_state["response"]
     choices = st.session_state["choices"]
     st.header("Choice of Plan")
@@ -87,9 +86,6 @@ async def form_1():
         st.write(response)
     else:
         form2.error("Missing Choice")
-
-
-
     
 
 if __name__ == "__main__":
