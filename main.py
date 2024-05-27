@@ -8,15 +8,16 @@ client = OpenAI( api_key=st.secrets["API_key"],
                 )
 
 async def gen_response(message):
-
+# generates a response with openai
     res = client.chat.completions.create(
-        model = "gpt-3.5-turbo-16k",
+        model = "gpt-3.5-turbo",
         messages = message
     )
 
     return res.choices[0].message.content
 
 async def app():
+  # To initialize the app
     if "current_form" not in st.session_state:
         st.session_state["current_form"] = 1
     if "message_history" not in st.session_state:
@@ -29,7 +30,7 @@ async def app():
 
 
 async def intro_page():
-    st.title("Plan Maker")
+   # Presents an intro page
     st.header("Fitness Plan Maker")
     intro_text = """by Isaiah Louis Emmanuel Yee\n
     This is Plan Maker, an openAI powered tool used to generate a fitness plan. Select options below to start
@@ -66,6 +67,7 @@ async def intro_page():
 
 
 async def form_1_page():
+  # Second form to handle choices
     response = st.session_state["response"]
     choices = st.session_state["choices"]
     st.header("Choice of Plan")
